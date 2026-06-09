@@ -1,4 +1,5 @@
 import { generateWaiverPdf, downloadPdf } from './generatePdf'
+import { normalizeCurrencyFields } from './validate'
 import type { WaiverData, WaiverTemplate } from './types'
 
 // 文件名带州/类型/索赔人，方便归档。
@@ -12,7 +13,8 @@ export async function buildWaiver(
   template: WaiverTemplate,
   data: WaiverData,
 ): Promise<{ bytes: Uint8Array; filename: string }> {
-  const bytes = await generateWaiverPdf(template, data)
+  // currency 字段规范化为千分位后再渲染 —— PDF 与表单预览所见即所填。
+  const bytes = await generateWaiverPdf(template, normalizeCurrencyFields(template, data))
   return { bytes, filename: waiverFilename(template, data) }
 }
 

@@ -4,6 +4,7 @@ import { getTemplate, templatesForState } from './waivers/templates'
 import { buildWaiver, downloadWaiver } from './waivers/download'
 import { pdfObjectUrl } from './waivers/generatePdf'
 import { loadProfile, saveProfile, clearProfile, hasProfile } from './waivers/remember'
+import { fieldHints } from './waivers/validate'
 import { Waitlist } from './components/Waitlist'
 import { Compare } from './components/Compare'
 
@@ -30,6 +31,9 @@ export default function App() {
     if (!template) return true
     return template.formFields.some((f) => f.required && !data[f.key]?.trim())
   }, [template, data])
+
+  // 非阻断提示：金额规范化预览 + 日期合理性。绝不阻止生成（守 Munger 红线，不替用户做判断）。
+  const hints = useMemo(() => (template ? fieldHints(template, data) : {}), [template, data])
 
   // 作废当前预览（表单/州/类型一变，旧 PDF 即与表单不符，必须丢弃，防下载到过期文件）。
   const dropPreview = () =>
@@ -135,6 +139,7 @@ export default function App() {
           <div className="fields">
             {template.formFields.map((f) => {
               const multiline = f.type === 'multiline'
+              const hint = hints[f.key]
               return (
                 <div key={f.key} className={`field${multiline ? ' full' : ''}`}>
                   <label htmlFor={f.key}>
@@ -151,10 +156,17 @@ export default function App() {
                     <input
                       id={f.key}
                       type={f.type === 'date' ? 'date' : 'text'}
+                      inputMode={f.type === 'currency' ? 'decimal' : undefined}
                       value={data[f.key] ?? ''}
                       placeholder={f.placeholder}
                       onChange={(e) => update(f.key, e.target.value)}
+                      aria-describedby={hint ? `${f.key}-hint` : undefined}
                     />
+                  )}
+                  {hint && (
+                    <span id={`${f.key}-hint`} className={`field-hint ${hint.kind}`}>
+                      {hint.text}
+                    </span>
                   )}
                 </div>
               )
