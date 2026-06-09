@@ -145,6 +145,9 @@ export default function App() {
         <a href="/waiverflow/guide/conditional-vs-unconditional-lien-waiver/">
           Conditional vs. unconditional lien waiver — which to sign, and when →
         </a>
+        <a href="/waiverflow/guide/texas-lien-waiver-form-53-284/">
+          Texas lien waiver form (Property Code §53.284) — how to fill it out →
+        </a>
       </footer>
     </main>
   )
