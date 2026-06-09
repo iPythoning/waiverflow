@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import type { StateCode, WaiverData, WaiverType } from './waivers/types'
 import { getTemplate, templatesForState } from './waivers/templates'
 import { downloadWaiver } from './waivers/download'
+import { loadProfile, saveProfile, clearProfile, hasProfile } from './waivers/remember'
 import { Waitlist } from './components/Waitlist'
 import { Compare } from './components/Compare'
 
@@ -14,9 +15,11 @@ const STATES: { code: StateCode; name: string }[] = [
 export default function App() {
   const [state, setState] = useState<StateCode | null>(null)
   const [type, setType] = useState<WaiverType | null>(null)
-  const [data, setData] = useState<WaiverData>({})
+  // 初始填入本浏览器记住的承包商身份（name/title/company），批量开 waiver 不必重敲。
+  const [data, setData] = useState<WaiverData>(() => loadProfile())
   const [agreed, setAgreed] = useState(false)
   const [busy, setBusy] = useState(false)
+  const [profileSaved, setProfileSaved] = useState(() => hasProfile())
 
   const template = state && type ? getTemplate(state, type) : undefined
 
@@ -37,9 +40,16 @@ export default function App() {
     setBusy(true)
     try {
       await downloadWaiver(template, data)
+      saveProfile(data) // 生成成功后记住身份字段，方便下一张
+      setProfileSaved(hasProfile())
     } finally {
       setBusy(false)
     }
+  }
+
+  const onClearProfile = () => {
+    clearProfile()
+    setProfileSaved(false)
   }
 
   return (
@@ -136,6 +146,15 @@ export default function App() {
           <p className="hint">
             Generated entirely in your browser. Nothing is uploaded. {template.statutoryRef} reproduced verbatim.
           </p>
+          {profileSaved && (
+            <p className="profile-note">
+              ✓ Your name, title &amp; company are saved in this browser so your next waiver starts pre-filled —
+              never uploaded.{' '}
+              <button type="button" className="link-btn" onClick={onClearProfile}>
+                Clear saved info
+              </button>
+            </p>
+          )}
         </section>
       )}
 

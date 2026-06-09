@@ -248,6 +248,26 @@ body {
   text-align: center;
 }
 
+.profile-note {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 10px;
+  text-align: center;
+  line-height: 1.5;
+}
+.link-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: var(--accent-ink);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.link-btn:hover {
+  color: var(--danger);
+}
+
 .draft-badge {
   display: inline-block;
   font-family: var(--mono);
