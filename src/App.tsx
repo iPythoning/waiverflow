@@ -136,6 +136,13 @@ export default function App() {
       )}
 
       <Waitlist />
+
+      <footer className="site-foot">
+        <span className="step-label">Learn</span>
+        <a href="/waiverflow/guide/conditional-vs-unconditional-lien-waiver/">
+          Conditional vs. unconditional lien waiver — which to sign, and when →
+        </a>
+      </footer>
     </main>
   )
 }
