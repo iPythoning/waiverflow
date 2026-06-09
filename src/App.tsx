@@ -150,7 +150,10 @@ export default function App() {
           Conditional vs. unconditional lien waiver — which to sign, and when →
         </a>
         <a href="/waiverflow/guide/texas-lien-waiver-form-53-284/">
-          Texas lien waiver form (Property Code §53.284) — how to fill it out →
+          Texas lien waiver form (Property Code §53.284) — all four forms, how to fill them out →
+        </a>
+        <a href="/waiverflow/guide/florida-lien-waiver-713-20/">
+          Florida lien waiver form (§713.20) — why both forms are unconditional →
         </a>
         <a href="/waiverflow/guide/do-i-need-a-lien-waiver-to-get-paid/">
           Do I need a lien waiver to get paid? — why payment is tied to waivers →

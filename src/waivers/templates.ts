@@ -226,6 +226,147 @@ export const TEMPLATES: WaiverTemplate[] = [
     ],
   },
 
+  // 德州 §53.284(c) —— Unconditional Progress：顶部强制 NOTICE，付款到账后立即生效
+  {
+    state: 'TX',
+    type: 'unconditional-progress',
+    label: 'Unconditional Waiver and Release on Progress Payment',
+    statutoryRef: 'Texas Property Code § 53.284(c)',
+    formFields: [
+      { key: 'projectName', label: 'Project', required: true },
+      { key: 'jobNumber', label: 'Job No.' },
+      f.paymentAmount,
+      { key: 'contractedWith', label: 'Person With Whom Signer Contracted', required: true },
+      f.owner,
+      { key: 'location', label: 'Location', required: true },
+      { key: 'jobDescription', label: 'Release Extent / Job Description', type: 'multiline', required: true },
+      { key: 'companyName', label: 'Company Name', required: true },
+      { key: 'claimantName', label: 'Signer Name', required: true },
+      f.claimantTitle,
+      f.signDate,
+    ],
+    blocks: [
+      {
+        kind: 'notice',
+        text: 'NOTICE: This document waives rights unconditionally and states that you have been paid for giving up those rights. It is prohibited for a person to require you to sign this document if you have not been paid the payment amount set forth below. If you have not been paid, use a conditional release form.',
+      },
+      { kind: 'title', text: 'UNCONDITIONAL WAIVER AND RELEASE ON PROGRESS PAYMENT' },
+      { kind: 'field', key: 'projectName', label: 'Project' },
+      { kind: 'field', key: 'jobNumber', label: 'Job No.' },
+      { kind: 'spacer' },
+      {
+        kind: 'paragraph',
+        text: 'The signer of this document has been paid and has received a progress payment in the sum of ${{paymentAmount}} for all labor, services, equipment, or materials furnished to the property or to {{contractedWith}} (person with whom signer contracted) on the property of {{owner}} (owner) located at {{location}} (location) to the following extent: {{jobDescription}} (job description). The signer therefore waives and releases any mechanic’s lien right, any right arising from a payment bond that complies with a state or federal statute, any common law payment bond right, any claim for payment, and any rights under any similar ordinance, rule, or statute related to claim or payment rights for persons in the signer’s position that the signer has on the above referenced project to the following extent:',
+      },
+      {
+        kind: 'paragraph',
+        text: 'This release covers a progress payment for all labor, services, equipment, or materials furnished to the property or to {{contractedWith}} (person with whom signer contracted) as indicated in the attached statement(s) or progress payment request(s), except for unpaid retention, pending modifications and changes, or other items furnished.',
+      },
+      {
+        kind: 'paragraph',
+        text: 'The signer warrants that the signer has already paid or will use the funds received from this progress payment to promptly pay in full all of the signer’s laborers, subcontractors, materialmen, and suppliers for all work, materials, equipment, or services provided for or to the above referenced project in regard to the attached statement(s) or progress payment request(s).',
+      },
+      { kind: 'spacer' },
+      { kind: 'field', key: 'dateOfSignature', label: 'Date' },
+      { kind: 'field', key: 'companyName', label: 'Company Name' },
+      { kind: 'field', key: 'claimantName', label: 'By (Signature)' },
+      { kind: 'field', key: 'claimantTitle', label: 'Title' },
+    ],
+  },
+
+  // 德州 §53.284(d) —— Conditional Final：尾款支票兑付后才生效，付款前签的安全网
+  {
+    state: 'TX',
+    type: 'conditional-final',
+    label: 'Conditional Waiver and Release on Final Payment',
+    statutoryRef: 'Texas Property Code § 53.284(d)',
+    formFields: [
+      { key: 'projectName', label: 'Project', required: true },
+      { key: 'jobNumber', label: 'Job No.' },
+      f.maker,
+      f.amount,
+      f.payable,
+      f.owner,
+      { key: 'location', label: 'Location', required: true },
+      { key: 'jobDescription', label: 'Release Extent / Job Description', type: 'multiline', required: true },
+      { key: 'contractedWith', label: 'Person With Whom Signer Contracted', required: true },
+      { key: 'companyName', label: 'Company Name', required: true },
+      { key: 'claimantName', label: 'Signer Name', required: true },
+      f.claimantTitle,
+      f.signDate,
+    ],
+    blocks: [
+      { kind: 'title', text: 'CONDITIONAL WAIVER AND RELEASE ON FINAL PAYMENT' },
+      { kind: 'field', key: 'projectName', label: 'Project' },
+      { kind: 'field', key: 'jobNumber', label: 'Job No.' },
+      { kind: 'spacer' },
+      {
+        kind: 'paragraph',
+        text: 'On receipt by the signer of this document of a check from {{makerOfCheck}} (maker of check) in the sum of ${{amountOfCheck}} payable to {{checkPayableTo}} (payee or payees of check) and when the check has been properly endorsed and has been paid by the bank on which it is drawn, this document becomes effective to release any mechanic’s lien right, any right arising from a payment bond that complies with a state or federal statute, any common law payment bond right, any claim for payment, and any rights under any similar ordinance, rule, or statute related to claim or payment rights for persons in the signer’s position that the signer has on the property of {{owner}} (owner) located at {{location}} (location) to the following extent: {{jobDescription}} (job description).',
+      },
+      {
+        kind: 'paragraph',
+        text: 'This release covers the final payment to the signer for all labor, services, equipment, or materials furnished to the property or to {{contractedWith}} (person with whom signer contracted).',
+      },
+      {
+        kind: 'paragraph',
+        text: 'Before any recipient of this document relies on this document, the recipient should verify evidence of payment to the signer.',
+      },
+      {
+        kind: 'paragraph',
+        text: 'The signer warrants that the signer has already paid or will use the funds received from this final payment to promptly pay in full all of the signer’s laborers, subcontractors, materialmen, and suppliers for all work, materials, equipment, or services provided for or to the above referenced project up to the date of this waiver and release.',
+      },
+      { kind: 'spacer' },
+      { kind: 'field', key: 'dateOfSignature', label: 'Date' },
+      { kind: 'field', key: 'companyName', label: 'Company Name' },
+      { kind: 'field', key: 'claimantName', label: 'By (Signature)' },
+      { kind: 'field', key: 'claimantTitle', label: 'Title' },
+    ],
+  },
+
+  // 德州 §53.284(e) —— Unconditional Final：尾款已到账后才签，签完即放弃全部留置权（无安全网）
+  {
+    state: 'TX',
+    type: 'unconditional-final',
+    label: 'Unconditional Waiver and Release on Final Payment',
+    statutoryRef: 'Texas Property Code § 53.284(e)',
+    formFields: [
+      { key: 'projectName', label: 'Project', required: true },
+      { key: 'jobNumber', label: 'Job No.' },
+      { key: 'contractedWith', label: 'Person With Whom Signer Contracted', required: true },
+      f.owner,
+      { key: 'location', label: 'Location', required: true },
+      { key: 'jobDescription', label: 'Release Extent / Job Description', type: 'multiline', required: true },
+      { key: 'companyName', label: 'Company Name', required: true },
+      { key: 'claimantName', label: 'Signer Name', required: true },
+      f.claimantTitle,
+      f.signDate,
+    ],
+    blocks: [
+      {
+        kind: 'notice',
+        text: 'NOTICE: This document waives rights unconditionally and states that you have been paid for giving up those rights. It is prohibited for a person to require you to sign this document if you have not been paid the payment amount set forth below. If you have not been paid, use a conditional release form.',
+      },
+      { kind: 'title', text: 'UNCONDITIONAL WAIVER AND RELEASE ON FINAL PAYMENT' },
+      { kind: 'field', key: 'projectName', label: 'Project' },
+      { kind: 'field', key: 'jobNumber', label: 'Job No.' },
+      { kind: 'spacer' },
+      {
+        kind: 'paragraph',
+        text: 'The signer of this document has been paid in full for all labor, services, equipment, or materials furnished to the property or to {{contractedWith}} (person with whom signer contracted) on the property of {{owner}} (owner) located at {{location}} (location) to the following extent: {{jobDescription}} (job description). The signer therefore waives and releases any mechanic’s lien right, any right arising from a payment bond that complies with a state or federal statute, any common law payment bond right, any claim for payment, and any rights under any similar ordinance, rule, or statute related to claim or payment rights for persons in the signer’s position.',
+      },
+      {
+        kind: 'paragraph',
+        text: 'The signer warrants that the signer has already paid or will use the funds received from this final payment to promptly pay in full all of the signer’s laborers, subcontractors, materialmen, and suppliers for all work, materials, equipment, or services provided for or to the above referenced project up to the date of this waiver and release.',
+      },
+      { kind: 'spacer' },
+      { kind: 'field', key: 'dateOfSignature', label: 'Date' },
+      { kind: 'field', key: 'companyName', label: 'Company Name' },
+      { kind: 'field', key: 'claimantName', label: 'By (Signature)' },
+      { kind: 'field', key: 'claimantTitle', label: 'Title' },
+    ],
+  },
+
   // ───────────────────────── 佛州 §713.20(4) ─────────────────────────
   {
     state: 'FL',
