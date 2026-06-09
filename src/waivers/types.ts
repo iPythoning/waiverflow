@@ -1,13 +1,16 @@
 // 数据驱动的 lien waiver 模型 —— 加州/德州、四种法定类型走同一套渲染管线。
 // 法律护栏 #1：本系统只做格式渲染，绝不做法律判断/合规保证。
 
-export type StateCode = 'CA' | 'TX'
+export type StateCode = 'CA' | 'TX' | 'FL'
 
 export type WaiverType =
   | 'conditional-progress'
   | 'unconditional-progress'
   | 'conditional-final'
   | 'unconditional-final'
+  // 佛州 §713.20 法定表格只有「progress / final」两种，且本身均为 unconditional（无加州式 4 类之分）
+  | 'progress'
+  | 'final'
 
 // 表单字段定义 —— 同时驱动「表单输入」和「PDF 字段块」，单一数据源。
 export interface FieldDef {

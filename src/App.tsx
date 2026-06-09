@@ -8,6 +8,7 @@ import { Compare } from './components/Compare'
 const STATES: { code: StateCode; name: string }[] = [
   { code: 'CA', name: 'California' },
   { code: 'TX', name: 'Texas' },
+  { code: 'FL', name: 'Florida' },
 ]
 
 export default function App() {

@@ -7,6 +7,9 @@
 //
 // 加州：Civil Code §§ 8132 / 8134 / 8136 / 8138（2012-07-01 生效版表格）
 // 德州：Property Code § 53.284
+// 佛州：Fla. Stat. § 713.20(4)（Progress Payment）/ § 713.20(5)（Final Payment）
+//   ⚠️ 佛州法定表格只有这两个，且本身均为 unconditional —— 不存在加州式 conditional/unconditional × progress/final
+//   的 4 类划分。§713.20(7) 允许另行附加 conditional 语句，但该子句原文未经律师核实，本轮不收录（宁缺毋滥）。
 
 import type { FieldDef, StateCode, WaiverTemplate, WaiverType } from './types'
 
@@ -220,6 +223,72 @@ export const TEMPLATES: WaiverTemplate[] = [
       { kind: 'field', key: 'companyName', label: 'Company Name' },
       { kind: 'field', key: 'claimantName', label: 'By (Signature)' },
       { kind: 'field', key: 'claimantTitle', label: 'Title' },
+    ],
+  },
+
+  // ───────────────────────── 佛州 §713.20(4) ─────────────────────────
+  {
+    state: 'FL',
+    type: 'progress',
+    label: 'Waiver and Release of Lien Upon Progress Payment',
+    statutoryRef: 'Florida Statutes § 713.20(4)',
+    formFields: [
+      f.paymentAmount,
+      f.through,
+      f.customer,
+      f.owner,
+      { key: 'propertyDescription', label: 'Description of Property', type: 'multiline', required: true },
+      f.claimant,
+      f.claimantTitle,
+      f.signDate,
+    ],
+    blocks: [
+      { kind: 'title', text: 'WAIVER AND RELEASE OF LIEN UPON PROGRESS PAYMENT' },
+      {
+        kind: 'paragraph',
+        text: 'The undersigned lienor, in consideration of the sum of ${{paymentAmount}}, hereby waives and releases its lien and right to claim a lien for labor, services, or materials furnished through {{throughDate}} (insert date) to {{customerName}} (insert the name of your customer) on the job of {{owner}} (insert the name of the owner) to the following property:',
+      },
+      { kind: 'field', key: 'propertyDescription', label: 'Description of Property' },
+      { kind: 'spacer' },
+      {
+        kind: 'paragraph',
+        text: 'This waiver and release does not cover any retention or labor, services, or materials furnished after the date specified.',
+      },
+      { kind: 'spacer' },
+      { kind: 'field', key: 'dateOfSignature', label: 'Dated on' },
+      { kind: 'spacer' },
+      { kind: 'field', key: 'claimantName', label: 'Lienor' },
+      { kind: 'field', key: 'claimantTitle', label: 'By (print name and title/office)' },
+    ],
+  },
+
+  // ───────────────────────── 佛州 §713.20(5) ─────────────────────────
+  {
+    state: 'FL',
+    type: 'final',
+    label: 'Waiver and Release of Lien Upon Final Payment',
+    statutoryRef: 'Florida Statutes § 713.20(5)',
+    formFields: [
+      { key: 'paymentAmount', label: 'Amount of Final Payment', type: 'currency', required: true },
+      f.customer,
+      f.owner,
+      { key: 'propertyDescription', label: 'Description of Property', type: 'multiline', required: true },
+      f.claimant,
+      f.claimantTitle,
+      f.signDate,
+    ],
+    blocks: [
+      { kind: 'title', text: 'WAIVER AND RELEASE OF LIEN UPON FINAL PAYMENT' },
+      {
+        kind: 'paragraph',
+        text: 'The undersigned lienor, in consideration of the final payment in the amount of ${{paymentAmount}}, hereby waives and releases its lien and right to claim a lien for labor, services, or materials furnished to {{customerName}} (insert the name of your customer) on the job of {{owner}} (insert the name of the owner) to the following described property:',
+      },
+      { kind: 'field', key: 'propertyDescription', label: 'Description of Property' },
+      { kind: 'spacer' },
+      { kind: 'field', key: 'dateOfSignature', label: 'Dated on' },
+      { kind: 'spacer' },
+      { kind: 'field', key: 'claimantName', label: 'Lienor' },
+      { kind: 'field', key: 'claimantTitle', label: 'By (print name and title/office)' },
     ],
   },
 ]

@@ -57,7 +57,7 @@ export function Waitlist() {
     <section className="card waitlist">
       <div className="step-label">Need another state?</div>
       <p className="wl-copy">
-        California &amp; Texas are live. Tell us where you work and we&rsquo;ll notify you the day your
+        California, Texas &amp; Florida are live. Tell us where you work and we&rsquo;ll notify you the day your
         state&rsquo;s statutory waivers ship — and what&rsquo;s slowing you down on waivers today.
       </p>
       <form className="wl-form" onSubmit={submit}>
