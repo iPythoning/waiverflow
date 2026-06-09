@@ -3,6 +3,7 @@ import type { StateCode, WaiverData, WaiverType } from './waivers/types'
 import { getTemplate, templatesForState } from './waivers/templates'
 import { downloadWaiver } from './waivers/download'
 import { Waitlist } from './components/Waitlist'
+import { Compare } from './components/Compare'
 
 const STATES: { code: StateCode; name: string }[] = [
   { code: 'CA', name: 'California' },
@@ -53,6 +54,8 @@ export default function App() {
           Procore.
         </p>
       </header>
+
+      <Compare />
 
       {/* Step 1 — 选州 */}
       <section className="card">

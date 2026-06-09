@@ -260,6 +260,89 @@ body {
   margin-left: 8px;
 }
 
+/* —— Compare —— */
+.compare {
+  border-color: oklch(58% 0.15 150 / 0.32);
+  background: linear-gradient(180deg, oklch(58% 0.15 150 / 0.045), var(--paper) 55%);
+}
+.cmp-lead {
+  font-size: 14px;
+  color: var(--ink-soft);
+  max-width: 58ch;
+  margin-bottom: 18px;
+}
+.cmp-grid {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.cmp-head,
+.cmp-row {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr 1.3fr;
+  gap: 1px;
+  background: var(--line);
+}
+.cmp-head > *,
+.cmp-row > * {
+  background: var(--paper);
+  padding: 11px 13px;
+}
+.cmp-head {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.cmp-head .cmp-us {
+  color: var(--ok);
+  font-weight: 700;
+}
+.cmp-head .cmp-them {
+  color: var(--ink-soft);
+}
+.cmp-key {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+}
+.cmp-cell {
+  font-size: 13px;
+  line-height: 1.4;
+  display: flex;
+  gap: 7px;
+  align-items: flex-start;
+}
+.cmp-cell.cmp-us {
+  color: var(--ink);
+  background: oklch(58% 0.15 150 / 0.05);
+}
+.cmp-cell.cmp-them {
+  color: var(--ink-soft);
+}
+.cmp-tick {
+  color: var(--ok);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.cmp-cross {
+  color: var(--ink-soft);
+  font-weight: 800;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+.cmp-foot {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
 /* —— Waitlist —— */
 .waitlist {
   border-color: oklch(45% 0.13 245 / 0.3);
@@ -353,5 +436,23 @@ body {
   }
   .wl-form {
     flex-direction: column;
+  }
+  .cmp-head,
+  .cmp-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cmp-head > :first-child {
+    display: none;
+  }
+  .cmp-key {
+    grid-column: 1 / -1;
+    background: var(--surface);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .cmp-cell {
+    font-size: 12.5px;
   }
 }
