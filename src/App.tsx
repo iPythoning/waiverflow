@@ -139,6 +139,9 @@ export default function App() {
 
       <footer className="site-foot">
         <span className="step-label">Learn</span>
+        <a href="/waiverflow/guide/how-to-fill-out-california-lien-waiver/">
+          How to fill out a California lien waiver — step by step →
+        </a>
         <a href="/waiverflow/guide/conditional-vs-unconditional-lien-waiver/">
           Conditional vs. unconditional lien waiver — which to sign, and when →
         </a>
