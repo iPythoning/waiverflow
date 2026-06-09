@@ -47,8 +47,9 @@ export default function App() {
           <h1>WaiverFlow</h1>
         </div>
         <p className="tagline">
-          State-accurate lien waivers in 60 seconds. Built for subcontractors on QuickBooks — no
-          Procore, no $400/month platform, no lawyer on retainer.
+          Lien waivers in 60 seconds — the statutory form for your state, filled in and ready to
+          sign. Built for subcontractors who run on QuickBooks, not a $400/month platform like
+          Procore.
         </p>
       </header>
 
