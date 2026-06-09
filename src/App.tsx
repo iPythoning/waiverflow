@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 import type { StateCode, WaiverData, WaiverType } from './waivers/types'
 import { getTemplate, templatesForState } from './waivers/templates'
-import { downloadWaiver } from './waivers/download'
+import { buildWaiver, downloadWaiver } from './waivers/download'
+import { pdfObjectUrl } from './waivers/generatePdf'
 import { loadProfile, saveProfile, clearProfile, hasProfile } from './waivers/remember'
 import { Waitlist } from './components/Waitlist'
 import { Compare } from './components/Compare'
@@ -20,6 +21,8 @@ export default function App() {
   const [agreed, setAgreed] = useState(false)
   const [busy, setBusy] = useState(false)
   const [profileSaved, setProfileSaved] = useState(() => hasProfile())
+  // 预览：bytes 与下载共用同一份；url 给 <iframe>，替换/作废前必须 revoke。
+  const [preview, setPreview] = useState<{ url: string; bytes: Uint8Array; filename: string } | null>(null)
 
   const template = state && type ? getTemplate(state, type) : undefined
 
@@ -28,23 +31,43 @@ export default function App() {
     return template.formFields.some((f) => f.required && !data[f.key]?.trim())
   }, [template, data])
 
+  // 作废当前预览（表单/州/类型一变，旧 PDF 即与表单不符，必须丢弃，防下载到过期文件）。
+  const dropPreview = () =>
+    setPreview((p) => {
+      if (p) URL.revokeObjectURL(p.url)
+      return null
+    })
+
   const pickState = (code: StateCode) => {
     setState(code)
     setType(null)
+    dropPreview()
   }
 
-  const update = (key: string, value: string) => setData((d) => ({ ...d, [key]: value }))
+  const update = (key: string, value: string) => {
+    setData((d) => ({ ...d, [key]: value }))
+    dropPreview()
+  }
 
-  const onGenerate = async () => {
+  const onPreview = async () => {
     if (!template) return
     setBusy(true)
     try {
-      await downloadWaiver(template, data)
-      saveProfile(data) // 生成成功后记住身份字段，方便下一张
-      setProfileSaved(hasProfile())
+      const { bytes, filename } = await buildWaiver(template, data)
+      setPreview((p) => {
+        if (p) URL.revokeObjectURL(p.url)
+        return { url: pdfObjectUrl(bytes), bytes, filename }
+      })
     } finally {
       setBusy(false)
     }
+  }
+
+  const onDownload = () => {
+    if (!preview) return
+    downloadWaiver(preview.bytes, preview.filename)
+    saveProfile(data) // 下载后记住身份字段，方便下一张
+    setProfileSaved(hasProfile())
   }
 
   const onClearProfile = () => {
@@ -86,7 +109,14 @@ export default function App() {
           <div className="step-label">Step 2 · Waiver type</div>
           <div className="type-list">
             {templatesForState(state).map((t) => (
-              <button key={t.type} aria-pressed={type === t.type} onClick={() => setType(t.type)}>
+              <button
+                key={t.type}
+                aria-pressed={type === t.type}
+                onClick={() => {
+                  setType(t.type)
+                  dropPreview()
+                }}
+              >
                 <div className="t-name">{t.label}</div>
                 <div className="t-ref">{t.statutoryRef}</div>
               </button>
@@ -140,12 +170,29 @@ export default function App() {
             </span>
           </label>
 
-          <button className="generate" disabled={missingRequired || !agreed || busy} onClick={onGenerate}>
-            {busy ? 'Generating…' : 'Generate & download PDF'}
+          <button className="generate" disabled={missingRequired || !agreed || busy} onClick={onPreview}>
+            {busy ? 'Generating…' : preview ? 'Refresh preview' : 'Preview PDF'}
           </button>
           <p className="hint">
             Generated entirely in your browser. Nothing is uploaded. {template.statutoryRef} reproduced verbatim.
           </p>
+
+          {preview && (
+            <div className="preview">
+              <div className="preview-bar">
+                <span>Preview — this is exactly what downloads</span>
+                <button type="button" className="download-btn" onClick={onDownload}>
+                  ↓ Download PDF
+                </button>
+              </div>
+              <iframe
+                className="preview-frame"
+                src={preview.url}
+                title="Lien waiver PDF preview"
+              />
+            </div>
+          )}
+
           {profileSaved && (
             <p className="profile-note">
               ✓ Your name, title &amp; company are saved in this browser so your next waiver starts pre-filled —

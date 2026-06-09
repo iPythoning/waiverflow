@@ -1,10 +1,22 @@
 import { generateWaiverPdf, downloadPdf } from './generatePdf'
 import type { WaiverData, WaiverTemplate } from './types'
 
-// 生成 → 命名 → 触发下载。文件名带州/类型/索赔人，方便归档。
-export async function downloadWaiver(template: WaiverTemplate, data: WaiverData) {
-  const bytes = await generateWaiverPdf(template, data)
+// 文件名带州/类型/索赔人，方便归档。
+export function waiverFilename(template: WaiverTemplate, data: WaiverData): string {
   const who = (data.claimantName || 'waiver').replace(/[^a-z0-9]+/gi, '-').toLowerCase()
-  const filename = `${template.state}-${template.type}-${who}.pdf`
+  return `${template.state}-${template.type}-${who}.pdf`
+}
+
+// 生成 PDF 字节 —— 预览与下载共用同一字节（只生成一次，符合不可变）。
+export async function buildWaiver(
+  template: WaiverTemplate,
+  data: WaiverData,
+): Promise<{ bytes: Uint8Array; filename: string }> {
+  const bytes = await generateWaiverPdf(template, data)
+  return { bytes, filename: waiverFilename(template, data) }
+}
+
+// 下载已生成的字节（与预览同一份，不重新生成）。
+export function downloadWaiver(bytes: Uint8Array, filename: string) {
   downloadPdf(bytes, filename)
 }

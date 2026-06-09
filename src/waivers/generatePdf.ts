@@ -135,10 +135,16 @@ export async function generateWaiverPdf(template: WaiverTemplate, data: WaiverDa
   return doc.save()
 }
 
-// 触发浏览器下载。
-export function downloadPdf(bytes: Uint8Array, filename: string) {
+// 把 PDF 字节包成 blob object URL，供 <iframe> 预览。
+// 调用方负责在替换/卸载前 revokeObjectURL，否则内存泄漏。
+export function pdfObjectUrl(bytes: Uint8Array): string {
   const blob = new Blob([bytes as BlobPart], { type: 'application/pdf' })
-  const url = URL.createObjectURL(blob)
+  return URL.createObjectURL(blob)
+}
+
+// 触发浏览器下载。即用即 revoke。
+export function downloadPdf(bytes: Uint8Array, filename: string) {
+  const url = pdfObjectUrl(bytes)
   const a = document.createElement('a')
   a.href = url
   a.download = filename
