@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import type { StateCode, WaiverData, WaiverType } from './waivers/types'
 import { getTemplate, templatesForState } from './waivers/templates'
 import { downloadWaiver } from './waivers/download'
+import { Waitlist } from './components/Waitlist'
 
 const STATES: { code: StateCode; name: string }[] = [
   { code: 'CA', name: 'California' },
@@ -133,6 +134,8 @@ export default function App() {
           </p>
         </section>
       )}
+
+      <Waitlist />
     </main>
   )
 }

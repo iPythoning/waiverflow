@@ -260,11 +260,79 @@ body {
   margin-left: 8px;
 }
 
+/* —— Waitlist —— */
+.waitlist {
+  border-color: oklch(45% 0.13 245 / 0.3);
+  background: linear-gradient(180deg, oklch(45% 0.13 245 / 0.04), var(--paper) 60%);
+}
+.wl-copy {
+  font-size: 14px;
+  color: var(--ink-soft);
+  max-width: 56ch;
+  margin-bottom: 16px;
+}
+.wl-copy a {
+  color: var(--blueprint);
+  font-weight: 600;
+}
+.wl-form {
+  display: flex;
+  gap: 10px;
+}
+.wl-form input {
+  flex: 1;
+  font-family: var(--sans);
+  font-size: 14px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  transition: border-color 0.15s ease;
+}
+.wl-form input:focus {
+  outline: none;
+  border-color: var(--blueprint);
+  background: var(--paper);
+}
+.wl-form button {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 8px;
+  background: var(--blueprint);
+  color: var(--paper);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.wl-form button:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+.wl-form button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.wl-err {
+  font-size: 12.5px;
+  color: var(--danger);
+  margin-top: 10px;
+}
+.wl-err a {
+  color: var(--danger);
+  font-weight: 600;
+}
+
 @media (max-width: 560px) {
   .fields {
     grid-template-columns: 1fr;
   }
   .brand h1 {
     font-size: 24px;
+  }
+  .wl-form {
+    flex-direction: column;
   }
 }
