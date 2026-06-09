@@ -148,6 +148,9 @@ export default function App() {
         <a href="/waiverflow/guide/texas-lien-waiver-form-53-284/">
           Texas lien waiver form (Property Code §53.284) — how to fill it out →
         </a>
+        <a href="/waiverflow/guide/do-i-need-a-lien-waiver-to-get-paid/">
+          Do I need a lien waiver to get paid? — why payment is tied to waivers →
+        </a>
       </footer>
     </main>
   )
