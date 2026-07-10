@@ -1,5 +1,9 @@
 # WaiverFlow — Free Lien Waiver Generator (California, Texas & Florida)
 
+<!-- bmc:front -->
+<p align="center"><a href="https://buymeacoffee.com/dayongfan"><img src="https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&amp;emoji=&amp;slug=dayongfan&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Buy me a coffee"></a></p>
+<!-- /bmc:front -->
+
 **Fill in the statutory lien waiver PDF in 60 seconds. 100% in your browser. Nothing uploaded. No account. No $400/month platform.**
 
 👉 **Live: [ipythoning.github.io/waiverflow](https://ipythoning.github.io/waiverflow/)**
@@ -38,6 +42,10 @@ Lien waiver compliance is a **monthly, recurring chore** for every subcontractor
 paid on a construction project. The incumbents are priced and built for general contractors
 and large subs. WaiverFlow is the deliberately **low-end, single-purpose** option: dead
 simple, free, QuickBooks-friendly, and accurate to the statute.
+
+<!-- bmc:middle -->
+<p align="center"><a href="https://buymeacoffee.com/dayongfan"><img src="https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&amp;emoji=&amp;slug=dayongfan&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Buy me a coffee"></a></p>
+<!-- /bmc:middle -->
 
 ## ⚠️ Legal posture (hard guardrails)
 
@@ -90,6 +98,6 @@ To unlock real search-traffic data, the site owner needs two one-time, 5-minute 
 Until then, GitHub repo signals (stars / forks / traffic) are the only AI-readable
 distribution metric — this README is also the only AI-controllable landing page.
 
-## Support
-
-[![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=dayongfan&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/dayongfan)
+<!-- bmc:end -->
+<p align="center"><a href="https://buymeacoffee.com/dayongfan"><img src="https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&amp;emoji=&amp;slug=dayongfan&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Buy me a coffee"></a></p>
+<!-- /bmc:end -->
