@@ -89,3 +89,7 @@ To unlock real search-traffic data, the site owner needs two one-time, 5-minute 
 
 Until then, GitHub repo signals (stars / forks / traffic) are the only AI-readable
 distribution metric — this README is also the only AI-controllable landing page.
+
+## Support
+
+[![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=dayongfan&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/dayongfan)
